@@ -1,5 +1,5 @@
 import pdfplumber
-
+import xlwt
 # 读取报告1.pdf
 with pdfplumber.open('Text/报告1.pdf') as pdf_1:
     # 获取每一页的内容并保存到列表中
@@ -39,6 +39,7 @@ from efficient_apriori import apriori
 item_sets, rules = apriori(transactions, min_support=0.05,  min_confidence=0.5)
 # 将关联规则按照提升度从大到小排序
 rules = sorted(rules, key=lambda x: x.lift, reverse=True)
+
 # 打印频繁项集，按项集中的元素个数分类打印
 for key, value in item_sets.items():
     print('频繁项集元素个数：', key)
@@ -46,16 +47,31 @@ for key, value in item_sets.items():
         print('  ', item)
 print("\n")
 
+book = xlwt.Workbook(encoding='utf-8', style_compression=0)
+sheet = book.add_sheet('关联规则', cell_overwrite_ok=True)
+col = ('关联规则', '支持度', '置信度', '提升度')
+for i in range(0, 4):
+    sheet.write(0, i, col[i])
+
 # print('关联规则：', rules)
 # 打印置信度和提升度
+index = 1
 for rule in rules:
+    if index > 20:
+        break
     print("=============================")
-    # print("Rule: {0} ==> {1}".format(rule.lhs, rule.rhs))
+    # print("{0} ==> {1}".format(rule.lhs, rule.rhs))
     print('规则：', rule)
     print('置信度：', rule.confidence)
     print('提升度：', rule.lift)
     print("=============================")
+    sheet.write(index, 0, "{0} --> {1}".format(rule.lhs, rule.rhs))
+    sheet.write(index, 1, rule.support)
+    sheet.write(index, 2, rule.confidence)
+    sheet.write(index, 3, rule.lift)
+    index += 1
 
+book.save('Text/报告1关联规则挖掘结果.xls')
 
 
 
