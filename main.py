@@ -78,25 +78,57 @@ novelListSorted_2.sort(key=lambda e: e[1], reverse=True)
 novelListSorted_3.sort(key=lambda e: e[1], reverse=True)
 novelListSorted_combine.sort(key=lambda e: e[1], reverse=True)
 
+import xlwt
+book_1 = xlwt.Workbook(encoding='utf-8', style_compression=0)
+book_2 = xlwt.Workbook(encoding='utf-8', style_compression=0)
+book_3 = xlwt.Workbook(encoding='utf-8', style_compression=0)
+book_combine = xlwt.Workbook(encoding='utf-8', style_compression=0)
+sheet_1 = book_1.add_sheet('报告1词频统计', cell_overwrite_ok=True)
+sheet_2 = book_2.add_sheet('报告2词频统计', cell_overwrite_ok=True)
+sheet_3 = book_3.add_sheet('报告3词频统计', cell_overwrite_ok=True)
+sheet_combine = book_combine.add_sheet('三份报告词频统计', cell_overwrite_ok=True)
+col = ('词语', '词频')
+for i in range(0, 2):
+    sheet_1.write(0, i, col[i])
+    sheet_2.write(0, i, col[i])
+    sheet_3.write(0, i, col[i])
+    sheet_combine.write(0, i, col[i])
+
 print("报告1的词频统计结果：")
 for topWordUp in novelListSorted_1[:10]:  # 统计词频最高的前10个词
     print(topWordUp)
+    sheet_1.write(novelListSorted_1.index(topWordUp) + 1, 0, topWordUp[0])
+    sheet_1.write(novelListSorted_1.index(topWordUp) + 1, 1, topWordUp[1])
 print("===========================")
+savePath_1 = 'Text/报告1词频统计.xls'
+book_1.save(savePath_1)
 
 print("报告2的词频统计结果：")
 for topWordUp in novelListSorted_2[:10]:
     print(topWordUp)
+    sheet_2.write(novelListSorted_2.index(topWordUp) + 1, 0, topWordUp[0])
+    sheet_2.write(novelListSorted_2.index(topWordUp) + 1, 1, topWordUp[1])
 print("===========================")
+savePath_2 = 'Text/报告2词频统计.xls'
+book_2.save(savePath_2)
 
 print("报告3的词频统计结果：")
 for topWordUp in novelListSorted_3[:10]:
     print(topWordUp)
+    sheet_3.write(novelListSorted_3.index(topWordUp) + 1, 0, topWordUp[0])
+    sheet_3.write(novelListSorted_3.index(topWordUp) + 1, 1, topWordUp[1])
 print("===========================")
+savePath_3 = 'Text/报告3词频统计.xls'
+book_3.save(savePath_3)
 
 print("三个报告的词频统计结果：")
 for topWordUp in novelListSorted_combine[:10]:
     print(topWordUp)
+    sheet_combine.write(novelListSorted_combine.index(topWordUp) + 1, 0, topWordUp[0])
+    sheet_combine.write(novelListSorted_combine.index(topWordUp) + 1, 1, topWordUp[1])
 print("===========================")
+savePath_combine = 'Text/三个报告词频统计.xls'
+book_combine.save(savePath_combine)
 
 
 
