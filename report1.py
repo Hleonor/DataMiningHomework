@@ -66,9 +66,9 @@ for rule in rules:
     print('提升度：', rule.lift)
     print("=============================")
     sheet.write(index, 0, "{0} --> {1}".format(rule.lhs, rule.rhs))
-    sheet.write(index, 1, rule.support)
-    sheet.write(index, 2, rule.confidence)
-    sheet.write(index, 3, rule.lift)
+    sheet.write(index, 1, format(rule.support, '.3f'))
+    sheet.write(index, 2, format(rule.confidence, '.3f'))
+    sheet.write(index, 3, format(rule.lift, '.3f'))
     index += 1
 
 book.save('Text/报告1关联规则挖掘结果.xls')
