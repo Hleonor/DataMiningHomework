@@ -36,9 +36,10 @@ stopwords.clear()
 
 from efficient_apriori import apriori
 # 调用apriori算法，得到频繁项集和关联规则以及支持度和置信度
-item_sets, rules = apriori(transactions, min_support=0.05,  min_confidence=0.5)
+item_sets, rules = apriori(transactions, min_support=0.03,  min_confidence=0.01)
 # 将关联规则按照提升度从大到小排序
 rules = sorted(rules, key=lambda x: x.lift, reverse=True)
+
 # 打印频繁项集，按项集中的元素个数分类打印
 for key, value in item_sets.items():
     print('频繁项集元素个数：', key)
@@ -53,7 +54,7 @@ for i in range(0, 4):
     sheet.write(0, i, col[i])
 
 # print('关联规则：', rules)
-# 打印前20条关联规则置信度和提升度
+# 打印置信度和提升度
 index = 1
 for rule in rules:
     if index > 20:
@@ -71,5 +72,6 @@ for rule in rules:
     index += 1
 
 book.save('Text/报告2关联规则挖掘结果.xls')
+
 
 
