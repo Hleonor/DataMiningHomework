@@ -1,19 +1,19 @@
 import pdfplumber
 
 # 读取报告1.pdf
-with pdfplumber.open('Text/报告1.pdf') as pdf_1:
+with pdfplumber.open('实验过程所需的各种文档和实验结果/报告1.pdf') as pdf_1:
     # 获取每一页的内容并保存到列表中
     pages = [page.extract_text() for page in pdf_1.pages]
     # 将列表中的内容合并成一个字符串
     novel_1 = ''.join(pages)
 
 # 读取报告2.pdf
-with pdfplumber.open('Text/报告2.pdf') as pdf_2:
+with pdfplumber.open('实验过程所需的各种文档和实验结果/报告2.pdf') as pdf_2:
     pages = [page.extract_text() for page in pdf_2.pages]
     novel_2 = ''.join(pages)
 
 # 读取报告3.pdf
-with pdfplumber.open('Text/报告3.pdf') as pdf_3:
+with pdfplumber.open('实验过程所需的各种文档和实验结果/报告3.pdf') as pdf_3:
     pages = [page.extract_text() for page in pdf_3.pages]
     novel_3 = ''.join(pages)
 
@@ -29,7 +29,7 @@ novelList_3 = list(jieba.lcut(novel_3))
 #合并三个报告的分词结果
 novelList_combine = list(jieba.lcut(novel_combine))
 
-stopwords = [line.strip() for line in open('Text/stop.txt', 'r', encoding='UTF-8').readlines()]
+stopwords = [line.strip() for line in open('实验过程所需的各种文档和实验结果/stop.txt', 'r', encoding='UTF-8').readlines()]
 
 novelDict_1 = {}
 novelDict_2 = {}
@@ -119,7 +119,7 @@ for topWordUp in novelListSorted_1[:10]:  # 统计词频最高的前10个词
     sheet_1.write(novelListSorted_1.index(topWordUp) + 1, 0, topWordUp[0])
     sheet_1.write(novelListSorted_1.index(topWordUp) + 1, 1, format(topWordUp[1] / pdf1_sum * 100, '.3f'))
 print("===========================")
-savePath_1 = 'Text/报告1词频统计.xls'
+savePath_1 = '实验过程所需的各种文档和实验结果/报告1词频统计.xls'
 book_1.save(savePath_1)
 
 print("报告2的词频统计结果：")
@@ -128,7 +128,7 @@ for topWordUp in novelListSorted_2[:10]:
     sheet_2.write(novelListSorted_2.index(topWordUp) + 1, 0, topWordUp[0])
     sheet_2.write(novelListSorted_2.index(topWordUp) + 1, 1, format(topWordUp[1] / pdf2_sum * 100, '.3f'))
 print("===========================")
-savePath_2 = 'Text/报告2词频统计.xls'
+savePath_2 = '实验过程所需的各种文档和实验结果/报告2词频统计.xls'
 book_2.save(savePath_2)
 
 print("报告3的词频统计结果：")
@@ -137,7 +137,7 @@ for topWordUp in novelListSorted_3[:10]:
     sheet_3.write(novelListSorted_3.index(topWordUp) + 1, 0, topWordUp[0])
     sheet_3.write(novelListSorted_3.index(topWordUp) + 1, 1, format(topWordUp[1] / pdf3_sum * 100, '.3f'))
 print("===========================")
-savePath_3 = 'Text/报告3词频统计.xls'
+savePath_3 = '实验过程所需的各种文档和实验结果/报告3词频统计.xls'
 book_3.save(savePath_3)
 
 print("三个报告的词频统计结果：")
@@ -146,7 +146,7 @@ for topWordUp in novelListSorted_combine[:10]:
     sheet_combine.write(novelListSorted_combine.index(topWordUp) + 1, 0, topWordUp[0])
     sheet_combine.write(novelListSorted_combine.index(topWordUp) + 1, 1, format(topWordUp[1] / pdf_combine_sum * 100, '.3f'))
 print("===========================")
-savePath_combine = 'Text/三个报告词频统计.xls'
+savePath_combine = '实验过程所需的各种文档和实验结果/三个报告词频统计.xls'
 book_combine.save(savePath_combine)
 
 

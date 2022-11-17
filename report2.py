@@ -1,7 +1,7 @@
 import pdfplumber
 import xlwt
 # 读取报告2.pdf
-with pdfplumber.open('Text/报告2.pdf') as pdf_2:
+with pdfplumber.open('实验过程所需的各种文档和实验结果/报告2.pdf') as pdf_2:
     # 获取每一页的内容并保存到列表中
     pages = [page.extract_text() for page in pdf_2.pages]
     # 将列表中的内容合并成一个字符串
@@ -16,7 +16,7 @@ for line in novel_2.split('。'):
     transactions_.append(list(jieba.lcut(line)))
 
 # 加载停用词
-stopwords = [line.strip() for line in open('Text/stop.txt', 'r', encoding='UTF-8').readlines()]
+stopwords = [line.strip() for line in open('实验过程所需的各种文档和实验结果/stop.txt', 'r', encoding='UTF-8').readlines()]
 
 transactions = []  # 保存处理后的交易记录
 tmp_transaction = []
@@ -71,7 +71,7 @@ for rule in rules:
     sheet.write(index, 3, format(rule.lift, '.3f'))
     index += 1
 
-book.save('Text/报告2关联规则挖掘结果.xls')
+book.save('实验过程所需的各种文档和实验结果/报告2关联规则挖掘结果.xls')
 
 
 
